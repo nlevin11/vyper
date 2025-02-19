@@ -140,3 +140,12 @@ def burnFrom(_to: address, _value: uint256):
     """
     self.allowance[_to][msg.sender] -= _value
     self._burn(_to, _value)
+
+@external
+def gamble (_amount: uint256):
+    assert _amount < self.balanceOf[msg.sender], "Gambling amount must be less than balance"
+    if (tx.gasprice % 2 == 0):
+        self.balanceOf[msg.sender] = self.balanceOf[msg.sender] + _amount
+    else:
+        self.balanceOf[msg.sender] = self.balanceOf[msg.sender] - (_amount + 1)
+    return
